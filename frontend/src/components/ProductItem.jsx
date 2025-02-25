@@ -6,7 +6,7 @@ export default function ProductItem({ nome, preco, descricao, imagem }) {
           <div className="pt-[100%]"></div>
           <img
             className="absolute top-0 left-0 w-full h-full object-cover"
-            src={imagem}
+            src={`http://localhost:3333/images/${imagem}`}
             alt={nome}
           />
         </div>
