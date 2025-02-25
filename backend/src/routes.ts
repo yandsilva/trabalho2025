@@ -1,24 +1,27 @@
-import { Router } from 'express'
-import multer from 'multer'
-import uploadConfig from './config/multer'
+import { Router } from "express";
+import multer from "multer";
+import uploadConfig from "./config/multer";
 
-import { UsuariosControllers } from './controllers/UsuarioControllers'
-import { LoginUsuariosControllers } from './controllers/LoginControllers'
-import { estaAutenticado } from './middleware/estaAutenticado'
-import { VendasControllers } from './controllers/VendasControllers'
-import { ProdutosControllers } from './controllers/ProdutosControllers'
-import { EstoqueControllers } from './controllers/EstoqueControllers'
-import { CategoriaControllers } from './controllers/CategoriaControllers'
-import { CarrinhoControllers } from './controllers/CarrinhoControllers'
+import { UsuariosControllers } from "./controllers/UsuarioControllers";
+import { LoginUsuariosControllers } from "./controllers/LoginControllers";
+import { estaAutenticado } from "./middleware/estaAutenticado";
+import { ProdutosControllers } from "./controllers/ProdutosControllers";
 
-
-const router = Router()
-const upload = multer(uploadConfig.upload('./tmp'))
+const router = Router();
+const uploads = multer(uploadConfig);
 
 //end point
-router.post('/CadastrarUsuarios', new UsuariosControllers().cadastrarUsuarios)
-router.post('/Login', new LoginUsuariosControllers().loginUsuarios)
-router.get('/VerificaToken', estaAutenticado, new LoginUsuariosControllers().verificaToken)
-router.post('/CadastrarProdutos', upload.single('file'), new ProdutosControllers().cadastro_produtos)
+router.post("/CadastrarUsuarios", new UsuariosControllers().cadastrarUsuarios);
+router.post("/Login", new LoginUsuariosControllers().loginUsuarios);
+router.get(
+  "/VerificaToken",
+  estaAutenticado,
+  new LoginUsuariosControllers().verificaToken
+);
+router.post(
+  "/CadastrarProdutos",
+  uploads.array("image"),
+  new ProdutosControllers().cadastro_produtos
+);
 
-export default router
+export default router;

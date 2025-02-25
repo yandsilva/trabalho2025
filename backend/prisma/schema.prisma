@@ -26,19 +26,30 @@ model CadastrarUsuarios {
 }
 
 model Produtos {
-  id         String @id @default(uuid())
-  nome       String
-  descricao  String
-  preco      String
-  banner     String
+  id        String  @id @default(uuid())
+  nome      String
+  descricao String
+  preco     String
+  image     Image[]
 
   data_criacao   DateTime @default(now())
   data_alteracao DateTime @updatedAt
 
-
   Carrinho Carrinho[]
 
   @@map("produtos")
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  path      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Produtos   Produtos? @relation(fields: [produtosId], references: [id], onDelete: Cascade)
+  produtosId String?
+
+  @@map("image")
 }
 
 model Carrinho {
