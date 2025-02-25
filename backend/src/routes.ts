@@ -23,5 +23,10 @@ router.post(
   uploads.array("image"),
   new ProdutosControllers().cadastro_produtos
 );
+router.get("/ListarProdutos", new ProdutosControllers().listar_produtos);
+router.delete(
+  "/DeletarProdutos/:id",
+  new ProdutosControllers().deletar_produtos
+);
 
 export default router;

@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(cors());
 app.use(router);
 
-app.use("/image", express.static(path.join(__dirname, "uploads")));
+app.use("/images", express.static(path.join(__dirname, "uploads")));
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof Error) {
